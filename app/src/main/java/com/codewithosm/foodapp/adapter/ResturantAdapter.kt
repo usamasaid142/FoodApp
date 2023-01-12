@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ResturantAdapter():ListAdapter<ResturantResponseItem,ResturantAdapter.ViewHolder>(DiffCallback()) {
+class ResturantAdapter(val action:Action):ListAdapter<ResturantResponseItem,ResturantAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -31,6 +31,10 @@ class ResturantAdapter():ListAdapter<ResturantResponseItem,ResturantAdapter.View
         Glide.with(holder.binding.thumbimage)
             .load(res.image)
             .into(holder.binding.thumbimage)
+
+        holder.itemView.setOnClickListener {
+            action.onItemClick(res)
+        }
 
     }
 
@@ -69,5 +73,9 @@ private fun gettodatytoHours(hours: Hours):String{
 
 
 }
+
+    interface Action{
+        fun onItemClick(responseItem: ResturantResponseItem)
+    }
 
 }

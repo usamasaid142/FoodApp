@@ -1,5 +1,6 @@
 package com.codewithosm.foodapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,7 @@ import java.io.InputStreamReader
 import java.io.StringWriter
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),ResturantAdapter.Action{
 
    private lateinit var binding: ActivityMainBinding
    private lateinit var resturantAdapter: ResturantAdapter
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initiRecylerview(){
-        resturantAdapter=ResturantAdapter()
+        resturantAdapter=ResturantAdapter(this)
         binding.rvResturant.apply {
             layoutManager=LinearLayoutManager(this@MainActivity)
             adapter=resturantAdapter
@@ -68,6 +69,12 @@ class MainActivity : AppCompatActivity() {
         val resturantModel=gson.fromJson<Array<ResturantResponseItem>>(jsonstr,Array<ResturantResponseItem>::class.java)
         return resturantModel.toList()
 
+    }
+
+    override fun onItemClick(responseItem: ResturantResponseItem) {
+        val intent=Intent(this,ResturantActivity::class.java)
+        intent.putExtra("resturantmodel",responseItem)
+        startActivity(intent)
     }
 
 }
