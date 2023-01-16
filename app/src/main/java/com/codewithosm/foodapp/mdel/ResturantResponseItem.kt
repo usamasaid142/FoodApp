@@ -10,6 +10,6 @@ data class ResturantResponseItem(
     val deliveryCharge: Int,
     val hours: Hours,
     val image: String,
-    val menus: List<Menu>,
+    var menus: List<Menu>,
     val name: String
 ):Parcelable

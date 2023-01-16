@@ -8,5 +8,6 @@ import kotlinx.android.parcel.Parcelize
 data class Menu(
     val name: String,
     val price: Double,
-    val url: String
+    val url: String,
+    var totalCount:Int
 ):Parcelable
